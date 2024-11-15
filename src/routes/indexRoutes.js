@@ -9,6 +9,7 @@ const usersRoutes = require('./usersRoutes');
 const commentsRoutes = require('./commentsRoutes');
 const bookmarksRoutes = require('./bookmarksRoutes');
 const readingProgressRoutes = require('./readingProgressRoutes');
+const readingTimesRoutes = require('./readingTimesRoutes')
 
 // Sử dụng các route cho từng controller
 router.use('/stories', storiesRoutes);
@@ -18,5 +19,6 @@ router.use('/users', usersRoutes);
 router.use('/comments', commentsRoutes);
 router.use('/bookmarks', bookmarksRoutes);
 router.use('/reading-progress', readingProgressRoutes);
+router.use('/reading-times', readingTimesRoutes);
 
 module.exports = router;

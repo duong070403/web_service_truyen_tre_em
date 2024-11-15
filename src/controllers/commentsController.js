@@ -1,32 +1,29 @@
 const CommentsModel = require('../models/commentsModel');
 
-const CommentsController = {
-  createComment: async (req, res) => {
+// Lấy danh sách bình luận theo ID truyện
+const getCommentsByStoryId = async (req, res) => {
+    const { story_id } = req.params;
     try {
-      const commentId = await CommentsModel.createComment(req.body);
-      res.status(201).json({ id: commentId });
+        const comments = await CommentsModel.getCommentsByStoryId(story_id);
+        if (comments) {
+            res.status(200).json(comments); // Trả về danh sách bình luận dưới dạng JSON
+        } else {
+            res.status(404).json({ message: 'No comments found for this story' });
+        }
     } catch (error) {
-      res.status(500).json({ error: error.message });
+        res.status(500).json({ message: 'Error retrieving comments', error });
     }
-  },
-
-  getCommentsByStoryId: async (req, res) => {
-    try {
-      const comments = await CommentsModel.getCommentsByStoryId(req.params.storyId);
-      res.status(200).json(comments);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  deleteComment: async (req, res) => {
-    try {
-      await CommentsModel.deleteComment(req.params.id);
-      res.status(204).end();
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  }
 };
 
-module.exports = CommentsController;
+// Gửi bình luận mới
+const postComment = async (req, res) => {
+    const { story_id, user_id, comment } = req.body;
+    try {
+        const newComment = await CommentsModel.addComment(story_id, user_id, comment);
+        res.status(201).json({ message: 'Comment added successfully', comment: newComment });
+    } catch (error) {
+        res.status(500).json({ message: 'Error posting comment', error });
+    }
+};
+
+module.exports = { getCommentsByStoryId, postComment };

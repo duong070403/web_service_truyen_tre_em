@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const CommentsController = require('../controllers/commentsController');
+const { getCommentsByStoryId, postComment } = require('../controllers/commentsController');
 
-router.post('/', CommentsController.createComment);
-router.get('/:storyId', CommentsController.getCommentsByStoryId);
-router.delete('/:id', CommentsController.deleteComment);
+// Lấy danh sách bình luận theo ID truyện
+router.get('/:story_id', getCommentsByStoryId);
+
+// Gửi bình luận mới
+router.post('/', postComment);
 
 module.exports = router;
