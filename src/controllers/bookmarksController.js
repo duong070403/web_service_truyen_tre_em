@@ -1,9 +1,9 @@
 const BookmarksModel = require('../models/bookmarksModel');
 
 const BookmarksController = {
-  createBookmark: async (req, res) => {
+  addBookmark: async (req, res) => {
     try {
-      const bookmarkId = await BookmarksModel.createBookmark(req.body);
+      const bookmarkId = await BookmarksModel.addBookmark(req.body);
       res.status(201).json({ id: bookmarkId });
     } catch (error) {
       res.status(500).json({ error: error.message });

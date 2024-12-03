@@ -17,9 +17,9 @@ const getCommentsByStoryId = async (req, res) => {
 
 // Gửi bình luận mới
 const postComment = async (req, res) => {
-    const { story_id, user_id, comment } = req.body;
+    const { story_id, user_id,email, comment } = req.body;
     try {
-        const newComment = await CommentsModel.addComment(story_id, user_id, comment);
+        const newComment = await CommentsModel.addComment(story_id, user_id,email, comment);
         res.status(201).json({ message: 'Comment added successfully', comment: newComment });
     } catch (error) {
         res.status(500).json({ message: 'Error posting comment', error });
